@@ -3,20 +3,20 @@ type binaryFn = (x: number, y: number) => number;
 type Values = number | unaryFn | binaryFn;
 
 function assertIsNumber(operator: Values): asserts operator is number {
-  if (typeof operator === "number") {
-    throw `Type error: expected unaryFn, found ${typeof operator}`;
+  if (typeof operator !== "number") {
+    throw `Type error: expected number, found ${operator}`;
   }
 }
 
 function assertIsUnary(operator: Values): asserts operator is unaryFn {
-  if (typeof operator != "number" && operator.length == 1) {
-    throw `Type error: expected unaryFn, found ${typeof operator}`;
+  if (typeof operator !== "function" || operator.length !== 1) {
+    throw `Type error: expected function of length 1, found ${operator}`;
   }
 }
 
 function assertIsBinary(operator: Values): asserts operator is binaryFn {
-  if (typeof operator != "number" && operator.length == 2) {
-    throw `Type error: expected binaryFn, found ${typeof operator}`;
+  if (typeof operator !== "function" || operator.length !== 2) {
+    throw `Type error: expected function of length 2, found ${operator}`;
   }
 }
 
