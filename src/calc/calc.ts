@@ -41,7 +41,7 @@ class Calculator {
         let tokens = new TokenBuffer(this.#buffer);
         let AST = parser(tokens);
         this.#ans = AST.eval();
-        this.#outputScreen!.textContent = this.#ans.toString();
+        this.#outputScreen!.textContent = this.trimOutput(this.#ans);
         this.#clear = true;
       } catch (error) {
         console.log(error);
@@ -119,6 +119,17 @@ class Calculator {
     }
 
     this.#inputScreen!.innerHTML = this.#buffer.toString();
+  }
+
+  trimOutput(result: number) {
+    // Truncate long outputs
+    let output: string;
+    if (result.toString().length > 18) {
+      output = result.toString().substring(0, 17);
+    } else {
+      output = result.toString();
+    }
+    return output;
   }
 }
 
