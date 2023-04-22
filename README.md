@@ -9,5 +9,6 @@ March 2023:
 - Convert the project to TypeScript
 April 2023:
 - Migrate to Vite
+- Migrate to Preact
 
 Deployed link: https://evestroud.github.io/scientific-calculator/
