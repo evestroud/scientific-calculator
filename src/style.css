@@ -12,7 +12,7 @@ body {
   align-items: center;
 }
 
-#calculator {
+#app {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -24,7 +24,8 @@ body {
   box-shadow: 5px 5px 5px grey;
 }
 
-#input-screen, #output-screen {
+#input-screen,
+#output-screen {
   position: relative;
   height: 10vh;
   background: #eee;
@@ -70,7 +71,7 @@ body {
 
 #controls {
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     "edit edit edit"
     "left top right"
     "left numbers right";
@@ -110,15 +111,15 @@ button {
 
 button::before {
   position: absolute;
-  top: .5vh;
-  left: .5vh;
+  top: 0.5vh;
+  left: 0.5vh;
   content: attr(data-second-label);
   font-size: 1rem;
   color: blue;
 }
 
 #second {
- color: blue;
+  color: blue;
 }
 
 .binaryOperators {

@@ -145,4 +145,4 @@ const controls: { [section: string]: Control[] } = {
   ],
 };
 
-export { controls, Control };
+export { controls, type Control };
