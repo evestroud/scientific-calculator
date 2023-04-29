@@ -22,7 +22,22 @@ const CalculatorButton = ({ control, keyHandler, second }: ButtonProps) => {
   };
 
   return (
-    <Button id={id} data-second-label={secondLabel} onClick={clickHandler}>
+    <Button
+      id={id}
+      h="3rem"
+      w="4rem"
+      fontSize="1.5rem"
+      fontWeight="400"
+      onClick={clickHandler}
+      _before={{
+        content: `"${secondLabel}"`,
+        top: "1",
+        left: "1",
+        fontSize: ".7rem",
+        color: "blue",
+        position: "absolute",
+      }}
+    >
       {label}
     </Button>
   );
