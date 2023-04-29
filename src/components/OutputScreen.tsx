@@ -1,9 +1,11 @@
+import { Box } from "@chakra-ui/react";
+
 type OutputScreenProps = {
   output: string;
 };
 
 const OutputScreen = ({ output }: OutputScreenProps) => {
-  return <div id="output-screen">{output}</div>;
+  return <Box id="output-screen">{output}</Box>;
 };
 
 export default OutputScreen;

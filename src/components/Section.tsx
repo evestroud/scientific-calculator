@@ -1,6 +1,7 @@
+import { GridItem } from "@chakra-ui/react";
 import { ComponentChildren } from "preact";
 import { Control } from "../controls";
-import Button from "./Button";
+import CalculatorButton from "./Button";
 
 type SectionProps = {
   id: string;
@@ -8,7 +9,7 @@ type SectionProps = {
 };
 
 const Section = ({ id, children }: SectionProps) => {
-  return <div id={id}>{children}</div>;
+  return <GridItem area={id}>{children}</GridItem>;
 };
 
 export default Section;

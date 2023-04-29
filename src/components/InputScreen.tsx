@@ -1,3 +1,5 @@
+import { Box } from "@chakra-ui/react";
+
 type InputScreenProps = {
   input: string;
   second: Boolean;
@@ -6,11 +8,11 @@ type InputScreenProps = {
 
 const InputScreen = ({ input, second, insert }: InputScreenProps) => {
   return (
-    <div
+    <Box
       id="input-screen"
       className={`${second ? "second" : ""} ${insert ? "insert" : ""}`}
       dangerouslySetInnerHTML={{ __html: input }}
-    ></div>
+    ></Box>
   );
 };
 

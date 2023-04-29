@@ -1,5 +1,6 @@
+import { Grid } from "@chakra-ui/react";
 import { Control } from "../controls";
-import Button from "./Button";
+import CalculatorButton from "./Button";
 import Section from "./Section";
 
 type ControlsProps = {
@@ -12,12 +13,24 @@ const Controls = ({ controls, keyHandler, second }: ControlsProps) => {
   const sections = Object.keys(controls).map((section) => (
     <Section id={section}>
       {controls[section].map((button) => (
-        <Button control={button} keyHandler={keyHandler} second={second} />
+        <CalculatorButton
+          control={button}
+          keyHandler={keyHandler}
+          second={second}
+        />
       ))}{" "}
     </Section>
   ));
 
-  return <div id="controls">{sections}</div>;
+  return (
+    <Grid
+      templateAreas={`"edit edit edit"
+                      "left top right"
+                      "left numbers right"`}
+    >
+      {sections}
+    </Grid>
+  );
 };
 
 export default Controls;

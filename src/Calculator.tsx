@@ -3,7 +3,7 @@ import InputScreen from "./components/InputScreen";
 import OutputScreen from "./components/OutputScreen";
 import Controls from "./components/Controls";
 import useCalculator from "./useCalculator";
-import { Container, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 const Calculator = () => {
   const { input, output, second, insert, keyHandler } = useCalculator();
@@ -16,7 +16,7 @@ const Calculator = () => {
     >
       <InputScreen input={input} second={second} insert={insert} />
       <OutputScreen output={output} />
-      <div id="logo">TS-30</div>
+      <Box id="logo">TS-30</Box>
       <Controls controls={controls} second={second} keyHandler={keyHandler} />
     </Flex>
   );
