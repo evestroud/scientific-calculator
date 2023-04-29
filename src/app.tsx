@@ -1,5 +1,4 @@
 import { controls } from "./controls";
-
 import InputScreen from "./components/InputScreen";
 import OutputScreen from "./components/OutputScreen";
 import Controls from "./components/Controls";
