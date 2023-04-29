@@ -1,19 +1,13 @@
-import { controls } from "./controls";
-import InputScreen from "./components/InputScreen";
-import OutputScreen from "./components/OutputScreen";
-import Controls from "./components/Controls";
-import useCalculator from "./useCalculator";
+import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import Calculator from "./Calculator";
+import theme from "./theme";
 
-const App = () => {
-  const { input, output, second, insert, keyHandler } = useCalculator();
-  return (
-    <>
-      <InputScreen input={input} second={second} insert={insert} />
-      <OutputScreen output={output} />
-      <div id="logo">TS-30</div>
-      <Controls controls={controls} second={second} keyHandler={keyHandler} />
-    </>
-  );
-};
+const App = () => (
+  <ChakraProvider theme={theme}>
+    <ColorModeProvider>
+      <Calculator />
+    </ColorModeProvider>
+  </ChakraProvider>
+);
 
 export { App };
