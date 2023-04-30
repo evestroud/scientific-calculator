@@ -6,6 +6,8 @@ const useInputBuffer = () => {
   );
   const [cursor, setCursor] = useState(0);
 
+  // TODO convert control fns into reducer
+
   const add = (token: string, display?: string) => {
     const newTokens = tokens.slice().splice(cursor, 0, { token, display });
     setTokens(newTokens);
@@ -57,13 +59,15 @@ const useInputBuffer = () => {
     return tokens.length;
   };
 
-  // TODO toJsx
-  const toString = () => {
+  const toJsx = () => {
     let displayStart = 0;
     let displayEnd = 1;
     let displayCursor = 0;
     let length = 0;
-    let displayTokens = [...displayTokens, "&nbsp"];
+    let displayTokens = [
+      ...tokens.map((item) => item.display || item.token),
+      "&nbsp",
+    ];
 
     for (let i = 0; i < displayTokens.length; i++) {
       let token = displayTokens[i];
@@ -96,9 +100,14 @@ const useInputBuffer = () => {
 
     let stringBuilder = displayTokens.slice(displayStart, displayEnd);
     let cursorChar = stringBuilder[displayCursor];
-    stringBuilder[displayCursor] = `<span id='cursor'>${cursorChar}</span>`;
 
-    return stringBuilder.join("");
+    return (
+      <>
+        {...stringBuilder.slice(0, displayCursor)}
+        {<span id="cursor">{cursorChar}</span>}
+        {...stringBuilder.slice(displayCursor + 1)}
+      </>
+    );
   };
 
   // [Symbol.iterator]() {
