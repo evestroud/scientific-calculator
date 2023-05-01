@@ -9,7 +9,9 @@ const App = () => {
   const { input, output, second, insert, keyHandler } = useCalculator();
   return (
     <>
-      <InputScreen input={input} second={second} insert={insert} />
+      <InputScreen second={second} insert={insert}>
+        {input}
+      </InputScreen>
       <OutputScreen output={output} />
       <div id="logo">TS-30</div>
       <Controls controls={controls} second={second} keyHandler={keyHandler} />

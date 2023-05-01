@@ -1,16 +1,19 @@
+import { ComponentChildren } from "preact";
+
 type InputScreenProps = {
-  input: string;
+  children: ComponentChildren;
   second: Boolean;
   insert: Boolean;
 };
 
-const InputScreen = ({ input, second, insert }: InputScreenProps) => {
+const InputScreen = ({ second, insert, children }: InputScreenProps) => {
   return (
     <div
       id="input-screen"
       className={`${second ? "second" : ""} ${insert ? "insert" : ""}`}
-      dangerouslySetInnerHTML={{ __html: input }}
-    ></div>
+    >
+      {children}
+    </div>
   );
 };
 
