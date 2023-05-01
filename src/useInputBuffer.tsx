@@ -1,90 +1,89 @@
-import { useState } from "preact/hooks";
+import { useRef } from "preact/hooks";
 
 const useInputBuffer = () => {
-  const [tokens, setTokens] = useState<{ token: string; display?: string }[]>(
-    []
-  );
-  const [cursor, setCursor] = useState(0);
+  let tokens = useRef<{ token: string; display?: string }[]>([]);
+  let cursor = useRef(0);
 
   // TODO convert control fns into reducer
 
   const add = (token: string, display?: string) => {
-    const newTokens = tokens.slice().splice(cursor, 0, { token, display });
-    setTokens(newTokens);
-    setCursor(cursor + 1);
+    tokens.current.splice(cursor.current, 0, { token, display });
+    cursor.current = cursor.current + 1;
   };
 
   const ans = (answer: number) => {
-    // TODO put this in evalutate in useCalculator
-    const newTokens = tokens.map((item) =>
+    // TODO put this in evalutate in useCalculator or TokenBuffer
+    tokens.current = tokens.current.map((item) =>
       item.token === "ANS" ? { token: answer.toString() } : item
     );
-    setTokens(newTokens);
   };
 
   const clear = () => {
-    setTokens([]);
-    setCursor(0);
+    tokens.current = [];
+    cursor.current = 0;
   };
 
   const del = () => {
-    if (tokens.length !== 0 && cursor !== tokens.length) {
-      const newTokens = tokens.slice().splice(cursor, 1);
-      setTokens(newTokens);
+    if (
+      tokens.current.length !== 0 &&
+      cursor.current !== tokens.current.length
+    ) {
+      tokens.current.splice(cursor.current, 1);
     }
   };
 
   const insert = (token: string, display?: string) => {
-    const newTokens = tokens.slice().splice(cursor, 1, { token, display });
-    setTokens(newTokens);
+    tokens.current.splice(cursor.current, 1, { token, display });
   };
 
   const left = () => {
-    if (cursor > 0) {
-      setCursor(cursor - 1);
+    if (cursor.current > 0) {
+      cursor.current = cursor.current - 1;
     }
   };
 
   const right = () => {
-    if (cursor < tokens.length) {
-      setCursor(cursor + 1);
+    if (cursor.current < tokens.current.length) {
+      cursor.current = cursor.current + 1;
     }
   };
 
-  const getCursor = () => {
-    return cursor;
+  const getTokens = () => {
+    return tokens.current.slice().map((item) => item.token);
   };
 
   const length = () => {
-    return tokens.length;
+    return tokens.current.length;
   };
 
   const toJsx = () => {
+    console.log(tokens);
+
     let displayStart = 0;
     let displayEnd = 1;
     let displayCursor = 0;
     let length = 0;
     let displayTokens = [
-      ...tokens.map((item) => item.display || item.token),
-      "&nbsp",
+      ...tokens.current.map((item) => item.display || item.token),
+      " ",
     ];
 
     for (let i = 0; i < displayTokens.length; i++) {
       let token = displayTokens[i];
-      let tokenLength = token === "&nbsp" ? 1 : token.length;
+      // let tokenLength = token === "&nbsp" ? 1 : token.length;
 
-      if (i < cursor) {
+      if (i < cursor.current) {
         displayCursor += 1;
       }
-      if (length + tokenLength < 18) {
+      if (length + token.length < 18) {
         displayEnd += 1;
-        length += tokenLength;
+        length += token.length;
       } else {
         if (displayCursor > 0) {
           displayStart += 1;
           length -= displayTokens[displayStart].length;
           displayEnd += 1;
-          length += tokenLength;
+          length += token.length;
           displayCursor -= 1;
         } else if (displayCursor === 0) {
           displayEnd -= 1;
@@ -93,7 +92,7 @@ const useInputBuffer = () => {
           displayStart -= 1;
           length += displayTokens[displayStart].length;
           displayEnd -= 1;
-          length -= tokenLength;
+          length -= token.length;
         }
       }
     }
@@ -103,21 +102,29 @@ const useInputBuffer = () => {
 
     return (
       <>
-        {...stringBuilder.slice(0, displayCursor)}
-        {<span id="cursor">{cursorChar}</span>}
-        {...stringBuilder.slice(displayCursor + 1)}
+        {stringBuilder.slice(0, displayCursor).join("")}
+        {
+          <span id="cursor">
+            {cursorChar === " " ? <>&nbsp;</> : cursorChar}
+          </span>
+        }
+        {stringBuilder.slice(displayCursor + 1).join("")}
       </>
     );
   };
 
-  // [Symbol.iterator]() {
-  //   let index = -1;
-  //   let tokens = tokens;
-
-  //   return {
-  //     next: () => ({ value: tokens[++index], done: !(index in tokens) }),
-  //   };
-  // }
+  return {
+    add,
+    ans,
+    clear,
+    del,
+    insert,
+    left,
+    right,
+    getTokens,
+    length,
+    toJsx,
+  };
 };
 
 export default useInputBuffer;
