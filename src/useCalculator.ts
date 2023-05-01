@@ -1,23 +1,28 @@
 import { useRef, useState } from "preact/hooks";
-import InputBuffer from "./calc/inputBuffer";
 import TokenBuffer from "./calc/tokenBuffer";
 import parser from "./calc/parser";
+import useInputBuffer from "./useInputBuffer";
 
 const useCalculator = () => {
+  // TODO refactor to use reducer
+  // TODO refactor to use useInputBuffer
+
   let ans = useRef(0);
-  const buffer = useRef(new InputBuffer());
+  // const buffer = useRef(new InputBuffer());
+  const buffer = useInputBuffer();
+
   let [clear, setClear] = useState(false);
   let [clearOutput, setClearOutput] = useState(false);
   const [insert, setInsert] = useState(false);
   const [second, setSecond] = useState(false);
-  const [input, setInput] = useState(buffer.current.toString());
+  const [input, setInput] = useState(buffer.toJsx());
   const [output, setOutput] = useState("");
 
   const evaluate = () => {
-    if (buffer.current.length) {
+    if (buffer.length()) {
       try {
-        buffer.current.ans(ans.current);
-        let tokens = new TokenBuffer(buffer.current);
+        buffer.ans(ans.current);
+        let tokens = new TokenBuffer(buffer.getTokens());
         let AST = parser(tokens);
         ans.current = AST.eval();
         setOutput(trimOutput(ans.current));
@@ -48,7 +53,7 @@ const useCalculator = () => {
   const specialKeys: { [key: string]: Function } = {
     equals: evaluate,
     clear: (() => {
-      buffer.current.clear();
+      buffer.clear();
       setClear(false);
       if (clearOutput) {
         setOutput("");
@@ -57,10 +62,10 @@ const useCalculator = () => {
         setClearOutput(true);
       }
     }).bind(this),
-    del: buffer.current.del.bind(buffer.current),
+    del: buffer.del.bind(buffer),
     ins: () => setInsert(!insert),
-    left: buffer.current.left.bind(buffer.current),
-    right: buffer.current.right.bind(buffer.current),
+    left: buffer.left.bind(buffer),
+    right: buffer.right.bind(buffer),
     second: () => setSecond(!second),
   };
 
@@ -80,11 +85,11 @@ const useCalculator = () => {
     if (specialKeys.hasOwnProperty(value)) {
       specialKeys[value]();
     } else if (insert) {
-      buffer.current.insert(value, symbol);
+      buffer.insert(value, symbol);
       setInsert(false);
     } else {
       if (
-        buffer.current.length === 0 &&
+        buffer.length() === 0 &&
         [
           "*",
           "/",
@@ -97,9 +102,9 @@ const useCalculator = () => {
           ")E(",
         ].includes(value)
       ) {
-        buffer.current.add("ANS", "ANS");
+        buffer.add("ANS", "ANS");
       }
-      buffer.current.add(value, symbol);
+      buffer.add(value, symbol);
     }
 
     if (value !== "second") setSecond(false);
@@ -108,7 +113,7 @@ const useCalculator = () => {
       setInsert(false);
     }
 
-    setInput(buffer.current.toString());
+    setInput(buffer.toJsx());
   };
 
   return { input, output, second, insert, keyHandler };

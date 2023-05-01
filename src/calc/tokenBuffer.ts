@@ -8,7 +8,7 @@ export default class TokenBuffer {
   #tokens: (string | number)[];
   #index: number = 0;
 
-  constructor(inputBuffer: InputBuffer) {
+  constructor(inputBuffer: string[]) {
     this.#tokens = [];
 
     let numberBuilder = [];
