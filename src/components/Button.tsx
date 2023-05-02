@@ -16,7 +16,7 @@ const Button = ({ control, keyHandler, second }: ButtonProps) => {
 
   const clickHandler = () => {
     const value = second ? secondValue : id;
-    const symbol = second ? secondBuffer : buffer;
+    const symbol = second ? secondBuffer : buffer || label;
     keyHandler(value, symbol);
   };
 
