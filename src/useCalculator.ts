@@ -8,7 +8,6 @@ const useCalculator = () => {
   // TODO refactor to use useInputBuffer
 
   let ans = useRef(0);
-  // const buffer = useRef(new InputBuffer());
   const buffer = useInputBuffer();
 
   let [clear, setClear] = useState(false);
@@ -21,8 +20,7 @@ const useCalculator = () => {
   const evaluate = () => {
     if (buffer.length()) {
       try {
-        buffer.ans(ans.current);
-        let tokens = new TokenBuffer(buffer.getTokens());
+        let tokens = new TokenBuffer(buffer.getTokens(), ans.current);
         let AST = parser(tokens);
         ans.current = AST.eval();
         setOutput(trimOutput(ans.current));

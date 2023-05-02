@@ -57,8 +57,6 @@ const useInputBuffer = () => {
   };
 
   const toJsx = () => {
-    console.log(tokens);
-
     let displayStart = 0;
     let displayEnd = 1;
     let displayCursor = 0;
