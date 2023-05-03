@@ -22,9 +22,11 @@ const Screen = ({ flags, children }: ScreenProps) => {
     <Box
       pos="relative"
       h="3rem"
-      w="80%"
+      w="100%"
       bg="#eee"
       color="black"
+      fontFamily="monospace"
+      fontSize="2rem"
       border="2px solid #999"
       textAlign="right"
     >

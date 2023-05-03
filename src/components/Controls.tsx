@@ -24,9 +24,12 @@ const Controls = ({ controls, keyHandler, second }: ControlsProps) => {
 
   return (
     <Grid
-      templateAreas={`"edit edit edit"
+      templateAreas={`". edit ."
                       "left top right"
                       "left numbers right"`}
+      templateColumns="1fr 2fr 1fr"
+      justifyItems="stretch"
+      gap="2"
     >
       {sections}
     </Grid>

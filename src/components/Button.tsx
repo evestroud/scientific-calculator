@@ -25,7 +25,9 @@ const CalculatorButton = ({ control, keyHandler, second }: ButtonProps) => {
     <Button
       id={id}
       h="3rem"
-      w="4rem"
+      w="3.5rem"
+      border="1px solid black"
+      bg="gray.400"
       fontSize="1.5rem"
       fontWeight="400"
       onClick={clickHandler}

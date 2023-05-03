@@ -9,7 +9,11 @@ type SectionProps = {
 };
 
 const Section = ({ id, children }: SectionProps) => {
-  return <GridItem area={id}>{children}</GridItem>;
+  return (
+    <GridItem textAlign="center" area={id}>
+      {children}
+    </GridItem>
+  );
 };
 
 export default Section;
