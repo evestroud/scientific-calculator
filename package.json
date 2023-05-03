@@ -9,8 +9,7 @@
     "preview": "vite preview"
   },
   "repository": {
-    "type": "git",
-    "url": "git@github.com:evestroud/odin-calculator.git"
+    "type": "git"
   },
   "author": "evestroud",
   "license": "ISC",
