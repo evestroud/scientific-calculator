@@ -5,6 +5,7 @@ const useInputBuffer = () => {
   let cursor = useRef(0);
 
   // TODO convert control fns into reducer
+  // TODO can move refs to state by lifting
 
   const add = (token: string, display?: string) => {
     tokens.current.splice(cursor.current, 0, { token, display });

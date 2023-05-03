@@ -5,8 +5,7 @@ import useInputBuffer from "./useInputBuffer";
 
 const useCalculator = () => {
   // TODO refactor to use reducer
-  // TODO refactor to use useInputBuffer
-
+  // TODO can replace refs with state by lifting
   let ans = useRef(0);
   const buffer = useInputBuffer();
 
