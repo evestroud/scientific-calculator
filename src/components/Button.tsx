@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { Control } from "../controls";
 
 type ButtonProps = {
@@ -6,7 +7,7 @@ type ButtonProps = {
   second: Boolean;
 };
 
-const Button = ({ control, keyHandler, second }: ButtonProps) => {
+const CalculatorButton = ({ control, keyHandler, second }: ButtonProps) => {
   const id = control.value || control.label;
   const label = control.label;
   const buffer = control.buffer || "";
@@ -16,15 +17,32 @@ const Button = ({ control, keyHandler, second }: ButtonProps) => {
 
   const clickHandler = () => {
     const value = second ? secondValue : id;
-    const symbol = second ? secondBuffer : buffer;
+    const symbol = second ? secondBuffer : buffer || label;
     keyHandler(value, symbol);
   };
 
   return (
-    <button id={id} data-second-label={secondLabel} onClick={clickHandler}>
+    <Button
+      id={id}
+      h="3rem"
+      w="3.5rem"
+      border="1px solid black"
+      bg="gray.400"
+      fontSize="1.5rem"
+      fontWeight="400"
+      onClick={clickHandler}
+      _before={{
+        content: `"${secondLabel}"`,
+        top: "1",
+        left: "1",
+        fontSize: ".7rem",
+        color: "blue",
+        position: "absolute",
+      }}
+    >
       {label}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default CalculatorButton;

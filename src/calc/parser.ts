@@ -133,7 +133,9 @@ function is_literal(token: string | number) {
 }
 
 function is_name(token: string | number) {
-  return token ? /^[a-zA-Z]+$/.test(token.toString()) : false;
+  return token !== "END" && token
+    ? /^[a-zA-Z]+$/.test(token.toString())
+    : false;
 }
 
 function is_call(token: string | number) {

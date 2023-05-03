@@ -8,7 +8,7 @@ export default class TokenBuffer {
   #tokens: (string | number)[];
   #index: number = 0;
 
-  constructor(inputBuffer: InputBuffer) {
+  constructor(inputBuffer: string[], ans: number) {
     this.#tokens = [];
 
     let numberBuilder = [];
@@ -23,7 +23,7 @@ export default class TokenBuffer {
         this.#tokens.push(numberToken);
         this.#tokens.push(t);
       } else {
-        this.#tokens.push(t);
+        t === "ANS" ? this.#tokens.push(ans) : this.#tokens.push(t);
       }
     }
 
