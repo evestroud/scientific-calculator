@@ -18,9 +18,8 @@ const Calculator = () => {
         borderRadius="5px"
         boxShadow="5px 5px 5px grey"
       >
-        <Screen display={input} flags={{ second, insert }} />
-        <Screen display={output} flags={{}} />
-        <OutputScreen output={output} />
+        <Screen flags={{ second, insert }}>{input}</Screen>
+        <Screen flags={{}}>{output}</Screen>
         <Box id="logo">TS-30</Box>
         <Controls controls={controls} second={second} keyHandler={keyHandler} />
       </Flex>

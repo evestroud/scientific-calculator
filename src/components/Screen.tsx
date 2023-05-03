@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
+import { ComponentChildren } from "preact";
 
-const Screen = ({
-  display,
-  flags,
-}: {
-  display: string;
-  flags: { second?: boolean; insert?: boolean };
-}) => {
+type ScreenProps = {
+  children: ComponentChildren;
+  flags: { [key: string]: boolean };
+};
+
+const Screen = ({ flags, children }: ScreenProps) => {
   const secondFlag = (
     <Box position="absolute" top="1" left="1" fontSize=".7rem">
       {flags.second ? "2nd" : ""}
@@ -24,12 +24,13 @@ const Screen = ({
       h="3rem"
       w="80%"
       bg="#eee"
+      color="black"
       border="2px solid #999"
       textAlign="right"
     >
       {secondFlag}
       {insertFlag}
-      {display}
+      {children}
     </Box>
   );
 };
