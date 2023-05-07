@@ -12,4 +12,8 @@ April 2023:
 - Migrate to Vite
 - Migrate to Preact
 
+May 2023
+- Continue to refactor to practice reactive programming
+- Migrate to Chakra-UI
+
 Deployed link: https://evestroud.github.io/scientific-calculator/
