@@ -1,4 +1,5 @@
 import { useRef } from "preact/hooks";
+import { keyframes, Text } from "@chakra-ui/react";
 
 const useInputBuffer = () => {
   let tokens = useRef<{ token: string; display?: string }[]>([]);
@@ -69,7 +70,6 @@ const useInputBuffer = () => {
 
     for (let i = 0; i < displayTokens.length; i++) {
       let token = displayTokens[i];
-      // let tokenLength = token === "&nbsp" ? 1 : token.length;
 
       if (i < cursor.current) {
         displayCursor += 1;
@@ -96,18 +96,28 @@ const useInputBuffer = () => {
       }
     }
 
-    let stringBuilder = displayTokens.slice(displayStart, displayEnd);
-    let cursorChar = stringBuilder[displayCursor];
+    let jsxBuilder = displayTokens
+      .slice(displayStart, displayEnd)
+      .map((token) => (token === " " ? <>&nbsp;</> : <>{token}</>));
+    let cursorChar = jsxBuilder[displayCursor];
+
+    const blinker = keyframes`
+      50% { background-color: darkgrey; }
+    `;
 
     return (
       <>
-        {stringBuilder.slice(0, displayCursor).join("")}
+        {jsxBuilder.slice(0, displayCursor)}
         {
-          <span id="cursor">
-            {cursorChar === " " ? <>&nbsp;</> : cursorChar}
-          </span>
+          <Text
+            as="span"
+            id="cursor"
+            animation={`${blinker} 1s step-start infinite`}
+          >
+            {cursorChar}
+          </Text>
         }
-        {stringBuilder.slice(displayCursor + 1).join("")}
+        {jsxBuilder.slice(displayCursor + 1)}
       </>
     );
   };

@@ -21,8 +21,9 @@ const Screen = ({ flags, children }: ScreenProps) => {
   return (
     <Box
       pos="relative"
-      h="3rem"
+      h="3.1rem"
       w="100%"
+      paddingRight="1"
       bg="#eee"
       color="black"
       fontFamily="monospace"
